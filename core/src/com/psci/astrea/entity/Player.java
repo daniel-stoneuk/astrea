@@ -16,13 +16,13 @@ public abstract class Player extends Entity{
 
     protected float angle;
     private int health;
-    public float speed;
+    public static float speed;
     public static Rectangle playerRectangle;
 
     protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
         this.health = health;
-        this.speed = speed;
+        Player.speed = speed;
         this.angle = angle;
         this.position = position;
 

@@ -32,5 +32,4 @@ public class MySprite extends Sprite {
         clone.set(this);
         return clone;
     }
-
 }
