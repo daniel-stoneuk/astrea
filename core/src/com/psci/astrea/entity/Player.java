@@ -3,74 +3,113 @@ package com.psci.astrea.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
-import com.psci.astrea.screen.GameScreen;
 
-import static com.psci.astrea.screen.GameScreen.playerSpriteRotate;
+public abstract class Player extends Entity {
 
-public class Player extends Entity {
+    public static final float MAX_SPEED = 6f;
+    public static final float SPEED_DECREASE = 0.25f;
 
-    public Player(MySprite sprite) {
+    protected float angle;
+    private int health;
+    protected float speed;
+
+    protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
+        this.health = health;
+        this.speed = speed;
+        this.angle = angle;
+        this.position = position;
     }
 
-    public static Player create() {
-        MySprite playerSprite = SpriteManager.getInstance().getSprite("player");
-        Player player = new Player(playerSprite);
+    public void draw(SpriteBatch spriteBatch) {
+        sprite.setOriginCenter();
+        sprite.setRotation(360f - getAngle((angle)));
+        sprite.draw(spriteBatch);
+    }
+
+    private float getAngle(float a) {
+        while (a < 0) {
+            a += 360f;
+        }
+        while (a > 360) {
+            a -= 360f;
+        }
+        return a;
+    }
+
+    public void rotateLeft() {
+        angle = getAngle(angle - 2.5f);
+    }
+
+    public void rotateRight() {
+        angle = getAngle(angle + 2.5f);
+    }
+
+    public void moveForwards() {
+        speed = speed + 1f;
+        if (speed > MAX_SPEED) speed = MAX_SPEED;
+    }
+
+    public void moveBackwards() {
+        speed = speed - 1f;
+        if (speed < -MAX_SPEED) speed = -MAX_SPEED;
+    }
+
+    public static Player createPlayer(String type, int windowWidth, int windowHeight) {
+        Player player = null;
+
+        SpriteManager handler = SpriteManager.getInstance();
+        MySprite playerSprite = handler.getSprite(type);
+        Vector2 position = new Vector2(windowWidth / 2, windowHeight / 2);
+
+        int health = 100;
+        float speed = 0f;
+        float angle = 0f;
+
+        if (type.equals("rocket")) {
+            player = new Rocket(playerSprite, position, health, speed, angle);
+        }
         return player;
     }
 
-    public void movement() {
-
-
+    public void update(float delta) {
+        super.update(delta);
+        if (speed <= -SPEED_DECREASE) {
+            speed += SPEED_DECREASE;
+        } else if (speed >= SPEED_DECREASE){
+            speed -= SPEED_DECREASE;
+        } else {
+            speed = 0f;
+        }
+        control();
+        movePlayer();
     }
 
-    public void rotation() {
-
+    private void movePlayer() {
+        position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
+        position.y = position.y + (int) (Math.cos(Math.toRadians(angle)) * speed);
     }
 
-    public void collision() {
-
-
-    }
-
-    public void shoot() {
-    }
-
-
-    @Override
-    public void draw(SpriteBatch spriteBatch) {
-
-    }
-
-    public static void spriteControl(float spriteXposition, float spriteYposition, float playerSpriteRotate) {
+    private void control() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            GameScreen.playerSpriteYposition++;
-
+            moveForwards();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            GameScreen.playerSpriteYposition--;
-
+            moveBackwards();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            GameScreen.playerSpriteXposition--;
+            rotateLeft();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            GameScreen.playerSpriteXposition++;
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            GameScreen.playerSpriteRotate++;
-
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            GameScreen.playerSpriteRotate--;
-
+            rotateRight();
         }
 
     }
 }
+
