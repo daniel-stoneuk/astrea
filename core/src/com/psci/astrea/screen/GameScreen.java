@@ -14,6 +14,9 @@ public class GameScreen extends MyScreen {
     Astrea astrea;
 
     MySprite star;
+    MySprite player;
+    MySprite alien;
+    MySprite asteroid;
 
     SpriteBatch spriteBatch;
 
@@ -26,6 +29,20 @@ public class GameScreen extends MyScreen {
         spriteBatch = new SpriteBatch();
         star.setPosition(200,200);
 
+
+        player = spriteManager.getSprite("player");
+        spriteBatch = new SpriteBatch();
+        player.setPosition(400,400);
+        inputProcessor = new GameInputProcessor(astrea);
+
+        alien = spriteManager.getSprite("alien");
+        spriteBatch = new SpriteBatch();
+        alien.setPosition(50,600);
+        inputProcessor = new GameInputProcessor(astrea);
+
+        asteroid = spriteManager.getSprite("asteroid");
+        spriteBatch = new SpriteBatch();
+        asteroid.setPosition(500,60);
         inputProcessor = new GameInputProcessor(astrea);
     }
 
@@ -36,10 +53,13 @@ public class GameScreen extends MyScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
         spriteBatch.begin();
         star.draw(spriteBatch);
+        player.draw(spriteBatch);
+        alien.draw(spriteBatch);
+        asteroid.draw(spriteBatch);
         spriteBatch.end();
 
     }
