@@ -10,6 +10,6 @@ public class GameUserInterface {
 
 
     public void rotateLeft() {
-        
+
     }
 }
