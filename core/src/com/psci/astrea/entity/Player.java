@@ -1,4 +1,4 @@
-package com.psci.astrea.Entities;
+package com.psci.astrea.entity;
 
 public class Player {
 
