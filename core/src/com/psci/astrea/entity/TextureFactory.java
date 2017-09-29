@@ -14,8 +14,8 @@ public class TextureFactory {
 		key = key.toLowerCase();
 		Texture texture = (Texture)textures.get(key);
 		if(texture == null){
-			if(key.equals("spider")){
-				path = "assets/img/thing.png";
+			if(key.equals("star")){
+				path = "img/star.png";
 			}
 			
 			else{
