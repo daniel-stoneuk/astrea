@@ -16,7 +16,7 @@ public class TextureFactory {
         if (texture == null) {
             if (key.equals("star")) {
                 path = "img/star.png";
-            } else if (key.equals("player")) {
+            } else if (key.equals("rocket")) {
                 path = "img/player.png";
             } else if (key.equals("asteroid")) {
                 path = "img/asteroid.png";
