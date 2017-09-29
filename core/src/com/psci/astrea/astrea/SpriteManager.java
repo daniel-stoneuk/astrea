@@ -25,31 +25,9 @@ public class SpriteManager {
     }
 
     private void initialize(){
-
-        initializeUserInterface();
-
+        
     }
 
-
-    private void initializeUserInterface() {
-//        uiSprite = createSprite("ui");
-//        uiSprite.setPosition(0, GameState.GRIDY * Config.tileSize);
-//
-//
-//
-//        towerLabel = createSprite("tower_label");
-//        towerLabel.setPosition(0, 13 * Config.tileSize);
-//
-//        emeraldSprite = createSprite("emerald");
-//        emeraldSprite.setPosition(0, 14 * Config.tileSize);
-//
-//        waveSprite = createSprite("wave");
-//        waveSprite.setPosition(0, 15 * Config.tileSize);
-//
-//        uiTowerHighlight = createSprite("tower_highlight");
-//
-//        redHighlight = createSprite("red_highlight");
-    }
 
     /**
      * Factory pattern to create sprites. Note that the name is turned into lower case.
@@ -64,7 +42,7 @@ public class SpriteManager {
         sprite = new MySprite(texture);
         sprite.setPosition(-50, -50);
 
-        sprite.setFlip(false, true);
+        sprite.setFlip(true, false);
         return sprite;
     }
 
