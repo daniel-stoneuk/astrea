@@ -54,7 +54,6 @@ public class GameScreen extends MyScreen {
         starRectangle=new Rectangle(star.getX(),star.getY(),star.getWidth(),star.getHeight());
         asteroidRectangle=new Rectangle(asteroid.getX(),asteroid.getY(),asteroid.getWidth(),asteroid.getHeight());
 
-
     }
 
 
@@ -80,14 +79,20 @@ public class GameScreen extends MyScreen {
         boolean alienisOverlaping = Player.playerRectangle.overlaps(alienRectangle);
         if(alienisOverlaping) {
             System.out.println("OVE|RLAPPIN");
+            Player.speed =0;
+
         }
         boolean starisOverlaping = Player.playerRectangle.overlaps(starRectangle);
         if(starisOverlaping) {
             System.out.println("OVE|RLAPPIN");
+            Player.speed =0;
+
         }
         boolean asteroidisOverlaping = Player.playerRectangle.overlaps(asteroidRectangle);
         if(asteroidisOverlaping) {
             System.out.println("OVE|RLAPPIN");
+            Player.speed =0;
+
         }
 
         star.draw(spriteBatch);
