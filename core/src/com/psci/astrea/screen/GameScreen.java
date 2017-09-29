@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.psci.astrea.astrea.Astrea;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
+import com.psci.astrea.entity.Player;
 import com.psci.astrea.entity.Star;
 import com.psci.astrea.input.GameInputProcessor;
 
@@ -19,7 +20,9 @@ public class GameScreen extends MyScreen {
     MySprite asteroid;
 
     SpriteBatch spriteBatch;
-
+    public static float playerSpriteXposition = 450;
+    public static float playerSpriteYposition = 320;
+    public static float playerSpriteRotate;
 
     public GameScreen(Astrea astrea) {
         this.astrea = astrea;
@@ -27,22 +30,21 @@ public class GameScreen extends MyScreen {
 
         star = spriteManager.getSprite("star");
         spriteBatch = new SpriteBatch();
-        star.setPosition(200,200);
+        star.setPosition(200, 200);
 
 
         player = spriteManager.getSprite("player");
         spriteBatch = new SpriteBatch();
-        player.setPosition(400,400);
         inputProcessor = new GameInputProcessor(astrea);
 
         alien = spriteManager.getSprite("alien");
         spriteBatch = new SpriteBatch();
-        alien.setPosition(50,600);
+        alien.setPosition(50, 600);
         inputProcessor = new GameInputProcessor(astrea);
 
         asteroid = spriteManager.getSprite("asteroid");
         spriteBatch = new SpriteBatch();
-        asteroid.setPosition(500,60);
+        asteroid.setPosition(500, 60);
         inputProcessor = new GameInputProcessor(astrea);
     }
 
@@ -57,7 +59,12 @@ public class GameScreen extends MyScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
         spriteBatch.begin();
         star.draw(spriteBatch);
+
         player.draw(spriteBatch);
+        Player.spriteControl(playerSpriteXposition, playerSpriteYposition, playerSpriteRotate);
+
+        player.setPosition(playerSpriteXposition, playerSpriteYposition);
+        player.setRotation(playerSpriteRotate);
         alien.draw(spriteBatch);
         asteroid.draw(spriteBatch);
         spriteBatch.end();
