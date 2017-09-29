@@ -2,7 +2,11 @@ package com.psci.astrea.input;
 
 import com.badlogic.gdx.Input;
 import com.psci.astrea.astrea.Astrea;
+import com.psci.astrea.entity.GameState;
+import com.psci.astrea.entity.Player;
 import com.psci.astrea.screen.GameUserInterface;
+
+import java.util.List;
 
 public class GameInputProcessor extends MyInputProcessor {
 
@@ -16,22 +20,6 @@ public class GameInputProcessor extends MyInputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
-            case Input.Keys.A: {
-                // Rotate left
-                break;
-            }
-            case Input.Keys.D: {
-                // Rotate right
-                break;
-            }
-            case Input.Keys.W: {
-                // Forward
-                break;
-            }
-            case Input.Keys.S: {
-                // Backwards - Not for now.
-                break;
-            }
             case Input.Keys.SPACE: {
                 break;
             }
