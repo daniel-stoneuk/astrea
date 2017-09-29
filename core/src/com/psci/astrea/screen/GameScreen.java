@@ -3,10 +3,12 @@ package com.psci.astrea.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.psci.astrea.astrea.Astrea;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.GameState;
+import com.psci.astrea.entity.Player;
 import com.psci.astrea.entity.Rocket;
 import com.psci.astrea.input.GameInputProcessor;
 
@@ -20,9 +22,10 @@ public class GameScreen extends MyScreen {
     MySprite asteroid;
 
     SpriteBatch spriteBatch;
-    public static float playerSpriteXposition = 450;
-    public static float playerSpriteYposition = 320;
-    public static float playerSpriteRotate;
+    public Rectangle alienRectangle;
+    public Rectangle starRectangle;
+    public Rectangle asteroidRectangle;
+
 
     private GameState gameState;
 
@@ -32,6 +35,7 @@ public class GameScreen extends MyScreen {
         gameState = GameState.getInstance();
 
         spriteBatch = new SpriteBatch();
+
         gameState.initialize();
 
         star = spriteManager.getSprite("star");
@@ -46,7 +50,15 @@ public class GameScreen extends MyScreen {
         asteroid.setPosition(500, 60);
 
         inputProcessor = new GameInputProcessor(astrea);
+        alienRectangle=new Rectangle(alien.getX(),alien.getY(),alien.getWidth(),alien.getHeight());
+        starRectangle=new Rectangle(star.getX(),star.getY(),star.getWidth(),star.getHeight());
+        asteroidRectangle=new Rectangle(asteroid.getX(),asteroid.getY(),asteroid.getWidth(),asteroid.getHeight());
+
+
     }
+
+
+
 
     @Override
     public void show() {
@@ -61,11 +73,29 @@ public class GameScreen extends MyScreen {
         gameState.render(spriteBatch);
 
         spriteBatch.begin();
+        alienRectangle = alien.getBoundingRectangle();
+        starRectangle = star.getBoundingRectangle();
+        asteroidRectangle = asteroid.getBoundingRectangle();
+
+        boolean alienisOverlaping = Player.playerRectangle.overlaps(alienRectangle);
+        if(alienisOverlaping) {
+            System.out.println("OVE|RLAPPIN");
+        }
+        boolean starisOverlaping = Player.playerRectangle.overlaps(starRectangle);
+        if(starisOverlaping) {
+            System.out.println("OVE|RLAPPIN");
+        }
+        boolean asteroidisOverlaping = Player.playerRectangle.overlaps(asteroidRectangle);
+        if(asteroidisOverlaping) {
+            System.out.println("OVE|RLAPPIN");
+        }
+
         star.draw(spriteBatch);
 
         alien.draw(spriteBatch);
         asteroid.draw(spriteBatch);
         spriteBatch.end();
+
 
         update(delta);
 

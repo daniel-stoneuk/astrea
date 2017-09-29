@@ -5,10 +5,13 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.psci.astrea.astrea.Astrea;
 
 public class DesktopLauncher {
+
+	public static int width = 900;
+	public static int height = 640;
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width =900;
-		config.height = 640;
+		config.width = width;
+		config.height = height;
 		config.resizable = false;
 		new LwjglApplication(new Astrea(), config);
 	}

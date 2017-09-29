@@ -3,18 +3,21 @@ package com.psci.astrea.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 
-public abstract class Player extends Entity {
+
+public abstract class Player extends Entity{
 
     public static final float MAX_SPEED = 6f;
     public static final float SPEED_DECREASE = 0.25f;
 
     protected float angle;
     private int health;
-    protected float speed;
+    public float speed;
+    public static Rectangle playerRectangle;
 
     protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
@@ -22,12 +25,16 @@ public abstract class Player extends Entity {
         this.speed = speed;
         this.angle = angle;
         this.position = position;
+
     }
 
     public void draw(SpriteBatch spriteBatch) {
         sprite.setOriginCenter();
         sprite.setRotation(360f - getAngle((angle)));
         sprite.draw(spriteBatch);
+        playerRectangle = new Rectangle(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
+        playerRectangle = sprite.getBoundingRectangle();
+
     }
 
     private float getAngle(float a) {

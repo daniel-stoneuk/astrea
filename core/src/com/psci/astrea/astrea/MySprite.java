@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class MySprite extends Sprite {
 
+
     public MySprite(Texture texture) {
         super(texture);
     }
