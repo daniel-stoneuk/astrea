@@ -9,5 +9,6 @@ public abstract class MyInputProcessor implements InputProcessor {
 
     public MyInputProcessor(Astrea astrea) {
         this.astrea = astrea;
+
     }
 }
