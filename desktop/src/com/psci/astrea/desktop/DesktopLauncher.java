@@ -7,7 +7,7 @@ import com.psci.astrea.astrea.Astrea;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 680;
+		config.width =900;
 		config.height = 640;
 		config.resizable = false;
 		new LwjglApplication(new Astrea(), config);
