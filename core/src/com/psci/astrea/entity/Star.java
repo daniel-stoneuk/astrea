@@ -14,7 +14,8 @@ public class Star extends Entity {
 
     public static Star create(){
         MySprite starSprite = SpriteManager.getInstance().getSprite("Star");
-        Vector2 position = new Vector2(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2);
+        Vector2 position = new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
         Star star = new newsun(starSprite, position);
 
         return star;

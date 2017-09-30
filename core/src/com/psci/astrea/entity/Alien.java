@@ -26,7 +26,7 @@ public abstract class Alien extends Entity{
 
     public void collidedWithPlayer() {
         Random random = new Random();
-        setPosition(new Vector2(random.nextInt(900), random.nextInt(640)));
+        setPosition(new Vector2(random.nextInt(SCREEN_WIDTH), random.nextInt(SCREEN_HEIGHT)));
     }
 
     public static Alien createAlien(String type) {
