@@ -64,12 +64,12 @@ public abstract class Player extends Entity{
         if (speed < -MAX_SPEED) speed = -MAX_SPEED;
     }
 
-    public static Player createPlayer(String type, int windowWidth, int windowHeight) {
+    public static Player createPlayer(String type) {
         Player player = null;
 
         SpriteManager handler = SpriteManager.getInstance();
         MySprite playerSprite = handler.getSprite(type);
-        Vector2 position = new Vector2(windowWidth / 2, windowHeight / 2);
+        Vector2 position = new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
         int health = 100;
         float speed = 0f;

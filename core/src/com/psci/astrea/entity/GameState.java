@@ -19,6 +19,7 @@ public class GameState {
     private float roundTime;
 
     private List<Player> players;
+    private List<Star> sun;
     private List<Alien> aliens;
 
     private boolean roundHasStarted;
@@ -43,11 +44,13 @@ public class GameState {
 
     public void newRoundInitialization(){
         players = new ArrayList<Player>();
-        players.add(Player.createPlayer("rocket",900,640));
+        players.add(Player.createPlayer("rocket"));
         aliens = new ArrayList<Alien>();
-        aliens.add(Alien.createAlien("alien", 900, 640));
-        aliens.add(Alien.createAlien("alien", 900, 640));
-        aliens.add(Alien.createAlien("alien", 900, 640));
+        sun = new ArrayList<Star>();
+        sun.add(Star.create());
+        aliens.add(Alien.createAlien("alien"));
+        aliens.add(Alien.createAlien("alien"));
+        aliens.add(Alien.createAlien("alien"));
     }
 
     public void update(float delta) {
@@ -59,6 +62,9 @@ public class GameState {
 
             for (Alien alien : aliens) {
                 alien.update(delta);
+            }
+            for (Star star : sun) {
+                star.update(delta);
             }
 
         }
@@ -78,6 +84,7 @@ public class GameState {
     public void render(SpriteBatch spriteBatch) {
         displayPlayers(spriteBatch);
         displayAliens(spriteBatch);
+        displaySun(spriteBatch);
     }
 
 
@@ -85,6 +92,13 @@ public class GameState {
         spriteBatch.begin();
         for(Player player : players) {
             player.draw(spriteBatch);
+        }
+        spriteBatch.end();
+    }
+    private void displaySun(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        for(Star star : sun) {
+            star.draw(spriteBatch);
         }
         spriteBatch.end();
     }

@@ -1,10 +1,13 @@
 package com.psci.astrea.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 
 public abstract class Entity {
+    public static int SCREEN_WIDTH = Gdx.graphics.getWidth();
+    public static int SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
     protected Vector2 position;
     protected MySprite sprite;

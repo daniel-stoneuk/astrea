@@ -29,14 +29,14 @@ public abstract class Alien extends Entity{
         setPosition(new Vector2(random.nextInt(900), random.nextInt(640)));
     }
 
-    public static Alien createAlien(String type, int windowWidth, int windowHeight) {
+    public static Alien createAlien(String type) {
         Alien alien = null;
 
         Random random = new Random();
 
         SpriteManager handler = SpriteManager.getInstance();
         MySprite playerSprite = handler.getSprite(type);
-        Vector2 position = new Vector2(random.nextInt(windowWidth), random.nextInt(windowHeight));
+        Vector2 position = new Vector2(random.nextInt(SCREEN_WIDTH), random.nextInt(SCREEN_HEIGHT));
 
         if (type.equals("alien")) {
             alien = new AlienImpl(playerSprite, position);
