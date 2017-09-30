@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.psci.astrea.astrea.Astrea;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
-import com.psci.astrea.desktop.DesktopLauncher;
 import com.psci.astrea.entity.GameState;
 import com.psci.astrea.entity.Player;
 import com.psci.astrea.entity.Rocket;
@@ -43,7 +42,7 @@ public class GameScreen extends MyScreen {
         gameState.initialize();
 
         star = spriteManager.getSprite("star");
-        star.setPosition((DesktopLauncher.width/2)-200, (DesktopLauncher.height/2)-200);
+        star.setPosition((900/2)-200, (640/2)-200);
 
         alien = spriteManager.getSprite("alien");
         spriteBatch = new SpriteBatch();
