@@ -2,19 +2,11 @@ package com.psci.astrea.input;
 
 import com.badlogic.gdx.Input;
 import com.psci.astrea.astrea.Astrea;
-import com.psci.astrea.entity.GameState;
-import com.psci.astrea.entity.Player;
-import com.psci.astrea.screen.GameUserInterface;
-
-import java.util.List;
 
 public class GameInputProcessor extends MyInputProcessor {
 
-    private GameUserInterface gameInterface;
-
     public GameInputProcessor(Astrea astrea) {
         super(astrea);
-        gameInterface = new GameUserInterface();
     }
 
     @Override
