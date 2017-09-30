@@ -9,7 +9,6 @@ import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.GameState;
 import com.psci.astrea.entity.Player;
-import com.psci.astrea.entity.Rocket;
 import com.psci.astrea.input.GameInputProcessor;
 
 import java.util.Random;
@@ -44,18 +43,18 @@ public class GameScreen extends MyScreen {
         star = spriteManager.getSprite("star");
         star.setPosition((900/2)-200, (640/2)-200);
 
-        alien = spriteManager.getSprite("alien");
-        spriteBatch = new SpriteBatch();
-        alien.setPosition(50, 600);
+//        alien = spriteManager.getSprite("alien");
+//        spriteBatch = new SpriteBatch();
+//        alien.setPosition(50, 600);
 
         asteroid = spriteManager.getSprite("asteroid");
         spriteBatch = new SpriteBatch();
         asteroid.setPosition(500, 60);
 
         inputProcessor = new GameInputProcessor(astrea);
-        alienRectangle = new Rectangle(alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight());
-        starRectangle = new Rectangle(star.getX(), star.getY(), star.getWidth(), star.getHeight());
-        asteroidRectangle = new Rectangle(asteroid.getX(), asteroid.getY(), asteroid.getWidth(), asteroid.getHeight());
+//        alienRectangle = new Rectangle(alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight());
+//        starRectangle = new Rectangle(star.getX(), star.getY(), star.getWidth(), star.getHeight());
+//        asteroidRectangle = new Rectangle(asteroid.getX(), asteroid.getY(), asteroid.getWidth(), asteroid.getHeight());
 
     }
 
@@ -72,35 +71,35 @@ public class GameScreen extends MyScreen {
 
         gameState.render(spriteBatch);
 
-        spriteBatch.begin();
-        alienRectangle = alien.getBoundingRectangle();
-        starRectangle = star.getBoundingRectangle();
-        asteroidRectangle = asteroid.getBoundingRectangle();
+//        spriteBatch.begin();
+//        alienRectangle = alien.getBoundingRectangle();
+//        starRectangle = star.getBoundingRectangle();
+//        asteroidRectangle = asteroid.getBoundingRectangle();
 
-        boolean alienisOverlaping = Player.playerRectangle.overlaps(alienRectangle);
-        if (alienisOverlaping) {
-            Player.speed = 0;
-
-            alien.setPosition(rn.nextInt(900), rn.nextInt(640));
-
-        }
-        boolean starisOverlaping = Player.playerRectangle.overlaps(starRectangle);
-        if (starisOverlaping) {
-            Player.speed = (float) 0.5;
-
-        }
-        boolean asteroidisOverlaping = Player.playerRectangle.overlaps(asteroidRectangle);
-        if (asteroidisOverlaping) {
-            Player.speed = 0;
-            asteroid.setPosition(rn.nextInt(900), rn.nextInt(640));
-
-        }
-
-        star.draw(spriteBatch);
-
-        alien.draw(spriteBatch);
-        asteroid.draw(spriteBatch);
-        spriteBatch.end();
+////        boolean alienisOverlaping = Player.playerRectangle.overlaps(alienRectangle);
+////        if (alienisOverlaping) {
+////            Player.speed = 0;
+////
+////            alien.setPosition(rn.nextInt(900), rn.nextInt(640));
+////
+////        }
+////        boolean starisOverlaping = Player.playerRectangle.overlaps(starRectangle);
+////        if (starisOverlaping) {
+////            Player.speed = (float) 0.5;
+////
+////        }
+////        boolean asteroidisOverlaping = Player.playerRectangle.overlaps(asteroidRectangle);
+////        if (asteroidisOverlaping) {
+////            Player.speed = 0;
+////            asteroid.setPosition(rn.nextInt(900), rn.nextInt(640));
+////
+////        }
+//
+//        star.draw(spriteBatch);
+//
+//        alien.draw(spriteBatch);
+//        asteroid.draw(spriteBatch);
+//        spriteBatch.end();
 
 
         update(delta);

@@ -1,5 +1,6 @@
 package com.psci.astrea.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
+import com.psci.astrea.entity.player.Rocket;
 
 
 public abstract class Player extends Entity{
@@ -16,13 +18,13 @@ public abstract class Player extends Entity{
 
     protected float angle;
     private int health;
-    public static float speed;
-    public static Rectangle playerRectangle;
+    public float speed;
+    public Rectangle playerRectangle;
 
     protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
         this.health = health;
-        Player.speed = speed;
+        this.speed = speed;
         this.angle = angle;
         this.position = position;
 
@@ -91,8 +93,23 @@ public abstract class Player extends Entity{
         } else {
             speed = 0f;
         }
-        control();
+        boolean collided = false;
+        GameState state = GameState.getInstance();
+        for (Alien alien : state.getAliens()) {
+            collided = checkCollisionWithAlien(alien);
+            if (collided) {
+                alien.collidedWithPlayer();
+            }
+        }
+        if (!collided) {
+            control();
+        }
         movePlayer();
+    }
+
+    private boolean checkCollisionWithAlien(Alien target) {
+        Rectangle minRect = sprite.getBoundingRectangle();
+        return minRect.overlaps(target.getSprite().getBoundingRectangle());
     }
 
     private void movePlayer() {

@@ -2,6 +2,7 @@ package com.psci.astrea.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.psci.astrea.entity.alien.AlienImpl;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class GameState {
     private float roundTime, spawnDelay;
 
     private List<Player> players;
+    private List<Alien> aliens;
 //    private List<Projectile> projectiles;
 
     private boolean roundHasStarted;
@@ -47,6 +49,10 @@ public class GameState {
         playerLife = 0;
         players = new ArrayList<Player>();
         players.add(Player.createPlayer("rocket",900,640));
+        aliens = new ArrayList<Alien>();
+        aliens.add(Alien.createAlien("alien", 900, 640));
+        aliens.add(Alien.createAlien("alien", 900, 640));
+        aliens.add(Alien.createAlien("alien", 900, 640));
     }
 
     public void update(float delta) {
@@ -55,6 +61,10 @@ public class GameState {
         if (roundHasStarted) {
             for (Player player : players)
                 player.update(delta);
+
+            for (Alien alien : aliens) {
+                alien.update(delta);
+            }
 
         }
 
@@ -67,12 +77,12 @@ public class GameState {
         else {
             roundHasStarted = true;
             roundTime = ROUND_DURATION;
-
         }
     }
 
     public void render(SpriteBatch spriteBatch) {
         displayPlayers(spriteBatch);
+        displayAliens(spriteBatch);
     }
 
 
@@ -84,8 +94,19 @@ public class GameState {
         spriteBatch.end();
     }
 
+    private void displayAliens(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        for(Alien alien : aliens) {
+            alien.draw(spriteBatch);
+        }
+        spriteBatch.end();
+    }
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<Alien> getAliens() {
+        return aliens;
     }
 }
