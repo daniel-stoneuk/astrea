@@ -3,6 +3,7 @@ package com.psci.astrea.entity;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -115,6 +116,17 @@ public abstract class Player extends Entity{
 
     private void control() {
 
+        if (position.x >= Gdx.graphics.getWidth()){
+            position.x = 0;
+        }else if (position.y >= Gdx.graphics.getHeight()){
+            position.y = 0;
+        }
+        else if (position.y <= 0 ){
+            position.y = Gdx.graphics.getHeight();
+        }
+        else if (position.x <= 0 ){
+            position.x = Gdx.graphics.getWidth();
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             moveForwards();
         }
