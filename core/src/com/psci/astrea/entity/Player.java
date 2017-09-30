@@ -19,7 +19,6 @@ public abstract class Player extends Entity{
     protected float angle;
     private int health;
     public float speed;
-    public Rectangle playerRectangle;
 
     protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
@@ -34,9 +33,6 @@ public abstract class Player extends Entity{
         sprite.setOriginCenter();
         sprite.setRotation(360f - getAngle((angle)));
         sprite.draw(spriteBatch);
-        playerRectangle = new Rectangle(sprite.getX(),sprite.getY(),sprite.getWidth(),sprite.getHeight());
-        playerRectangle = sprite.getBoundingRectangle();
-
     }
 
     private float getAngle(float a) {

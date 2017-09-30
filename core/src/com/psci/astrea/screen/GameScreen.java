@@ -17,16 +17,12 @@ public class GameScreen extends MyScreen {
 
     Astrea astrea;
 
-    MySprite star;
-    MySprite player;
-    MySprite alien;
-    MySprite asteroid;
+//    MySprite star;
+//    MySprite player;
+//    MySprite alien;
+//    MySprite asteroid;
 
     SpriteBatch spriteBatch;
-    public Rectangle alienRectangle;
-    public Rectangle starRectangle;
-    public Rectangle asteroidRectangle;
-    private Random rn = new Random();
 
 
     private GameState gameState;
@@ -40,18 +36,20 @@ public class GameScreen extends MyScreen {
 
         gameState.initialize();
 
-        star = spriteManager.getSprite("star");
-        star.setPosition((900/2)-200, (640/2)-200);
+        inputProcessor = new GameInputProcessor(astrea);
 
+
+//        star = spriteManager.getSprite("star");
+//        star.setPosition((900/2)-200, (640/2)-200);
+//
 //        alien = spriteManager.getSprite("alien");
 //        spriteBatch = new SpriteBatch();
 //        alien.setPosition(50, 600);
+//
+//        asteroid = spriteManager.getSprite("asteroid");
+//        spriteBatch = new SpriteBatch();
+//        asteroid.setPosition(500, 60);
 
-        asteroid = spriteManager.getSprite("asteroid");
-        spriteBatch = new SpriteBatch();
-        asteroid.setPosition(500, 60);
-
-        inputProcessor = new GameInputProcessor(astrea);
 //        alienRectangle = new Rectangle(alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight());
 //        starRectangle = new Rectangle(star.getX(), star.getY(), star.getWidth(), star.getHeight());
 //        asteroidRectangle = new Rectangle(asteroid.getX(), asteroid.getY(), asteroid.getWidth(), asteroid.getHeight());

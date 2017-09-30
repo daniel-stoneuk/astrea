@@ -16,14 +16,10 @@ public class GameState {
 
     private static final float PRE_ROUND_WAIT_DURATION = 5;
 
-    private int playerLife = 10;
-    private int spawnedEnemies;
-
-    private float roundTime, spawnDelay;
+    private float roundTime;
 
     private List<Player> players;
     private List<Alien> aliens;
-//    private List<Projectile> projectiles;
 
     private boolean roundHasStarted;
 
@@ -46,7 +42,6 @@ public class GameState {
     }
 
     public void newRoundInitialization(){
-        playerLife = 0;
         players = new ArrayList<Player>();
         players.add(Player.createPlayer("rocket",900,640));
         aliens = new ArrayList<Alien>();
