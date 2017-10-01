@@ -36,8 +36,7 @@ public class SpriteManager {
 
         sprite = new MySprite(texture);
         sprite.setPosition(-50, -50);
-
-        sprite.setFlip(false, false);
+        sprite.setOriginCenter();
         return sprite;
     }
 

@@ -1,40 +1,41 @@
 package com.psci.astrea.entity;
 
-import box2dLight.RayHandler;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.psci.astrea.astrea.Astrea;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
-import com.psci.astrea.entity.Sun.newsun;
+import com.psci.astrea.entity.star.Sun;
 
-public class Star extends Entity {
+public abstract class Star extends Entity {
 
 //    public RayHandler raay = new RayHandler(Astrea);
 
+    // Percentage
+    protected int size;
 
-    public static Star create(){
-        MySprite starSprite = SpriteManager.getInstance().getSprite("Star");
-        Vector2 position = new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-
-        Star star = new newsun(starSprite, position);
-
-        return star;
-    }
-    public void update(float delta) {
-        super.update(delta);
-    }
-
-    public Star(MySprite sprite, Vector2 position) {
+    protected Star(MySprite sprite, Vector2 position, int size) {
         super(sprite);
         this.position = position;
+        this.size = size;
+    }
+
+
+    public void update(float delta) {
+        super.update(delta);
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
         sprite.draw(spriteBatch);
+    }
+
+
+    public static Star create(){
+        MySprite starSprite = SpriteManager.getInstance().getSprite("star");
+        Vector2 position = new Vector2((SCREEN_WIDTH / 2) - starSprite.getWidth() / 2, (SCREEN_HEIGHT / 2) - starSprite.getHeight() / 2);
+
+        Star star = new Sun(starSprite, position, 1);
+
+        return star;
     }
 }

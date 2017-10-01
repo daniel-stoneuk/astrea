@@ -27,11 +27,9 @@ public abstract class Player extends Entity{
         this.speed = speed;
         this.angle = angle;
         this.position = position;
-
     }
 
     public void draw(SpriteBatch spriteBatch) {
-        sprite.setOriginCenter();
         sprite.setRotation(360f - getAngle((angle)));
         sprite.draw(spriteBatch);
     }
