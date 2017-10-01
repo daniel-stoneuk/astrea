@@ -9,9 +9,6 @@ import java.util.HashMap;
 public class SpriteManager {
 
     private static SpriteManager instance;
-    private static HashMap<String, Texture> smallStars;
-
-    MySprite mySprite;
 
     public static SpriteManager getInstance() {
         if (instance == null)
@@ -20,14 +17,12 @@ public class SpriteManager {
     }
 
     private SpriteManager() {
-        smallStars = new HashMap<String, Texture>();
         initialize();
     }
 
     private void initialize(){
         
     }
-
 
     /**
      * Factory pattern to create sprites. Note that the name is turned into lower case.
@@ -42,7 +37,7 @@ public class SpriteManager {
         sprite = new MySprite(texture);
         sprite.setPosition(-50, -50);
 
-        sprite.setFlip(true, false);
+        sprite.setFlip(false, false);
         return sprite;
     }
 
