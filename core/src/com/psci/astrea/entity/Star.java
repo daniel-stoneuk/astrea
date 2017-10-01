@@ -1,6 +1,6 @@
 package com.psci.astrea.entity;
 
-import box2dLight.*;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,7 +13,7 @@ import com.psci.astrea.entity.Sun.newsun;
 
 public class Star extends Entity {
 
-    //public RayHandler raay = new RayHandler(Astrea);
+//    public RayHandler raay = new RayHandler(Astrea);
 
 
     public static Star create(){
