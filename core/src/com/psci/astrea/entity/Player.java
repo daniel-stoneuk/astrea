@@ -148,8 +148,8 @@ public abstract class Player extends Entity{
         }
     }
     public void shoot(){
-        System.out.println("oof");
-        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x,getPosition().y);
+        System.out.println(angle);
+        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x,getPosition().y,angle);
     }
 
 

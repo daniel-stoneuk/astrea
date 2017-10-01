@@ -11,11 +11,13 @@ import com.psci.astrea.astrea.SpriteManager;
  */
 public class Bullet{
 
-    public static void spawnBullet(SpriteBatch batch, float x, float y){
+    public static void spawnBullet(SpriteBatch batch, float x, float y, float rot){
         batch.begin();
         SpriteManager handler = SpriteManager.getInstance();
         MySprite bullet = handler.getSprite("bullet");
-        batch.draw(bullet, x, y);
+        bullet.setPosition(x,y);
+        bullet.setRotation(-rot);
+        bullet.draw(batch);
         batch.end();
 
     }
