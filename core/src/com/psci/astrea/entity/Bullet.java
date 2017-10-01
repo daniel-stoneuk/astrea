@@ -18,7 +18,11 @@ public class Bullet{
         bullet.setPosition(x,y);
         bullet.setRotation(-rot);
         bullet.draw(batch);
+        for (int i = 0; i < 100 ; i++) {
+
+        }
         batch.end();
+
 
     }
 }

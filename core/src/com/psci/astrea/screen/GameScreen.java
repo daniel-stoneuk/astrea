@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -28,7 +29,7 @@ public class GameScreen extends MyScreen {
 //    MySprite player;
 //    MySprite alien;
 //    MySprite asteroid;
-
+    private BitmapFont font = new BitmapFont();
     public static SpriteBatch spriteBatch;
 
 
@@ -110,7 +111,13 @@ public class GameScreen extends MyScreen {
     }
 
     private void update(float delta) {
+        FPS();
         gameState.update(delta);
+    }
+    private void FPS(){
+        spriteBatch.begin();
+        font.draw(spriteBatch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 0, Gdx.graphics.getHeight());
+        spriteBatch.end();
     }
 
     @Override

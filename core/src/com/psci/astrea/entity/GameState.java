@@ -9,6 +9,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.psci.astrea.screen.GameScreen.spriteBatch;
+
 public class GameState {
 
     private static GameState instance;
@@ -57,6 +59,7 @@ public class GameState {
 
     public void update(float delta) {
         updateRoundTimer(delta);
+
 
         if (roundHasStarted) {
             for (Player player : players)
