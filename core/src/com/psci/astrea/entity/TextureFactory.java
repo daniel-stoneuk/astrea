@@ -14,8 +14,8 @@ public class TextureFactory {
         key = key.toLowerCase();
         Texture texture = textures.get(key);
         if (texture == null) {
-            if (key.equals("star")) {
-                path = "img/star.png";
+            if (key.equals("sun")) {
+                path = "img/sun.png";
             } else if (key.equals("rocket")) {
                 path = "img/player.png";
             } else if (key.equals("asteroid")) {

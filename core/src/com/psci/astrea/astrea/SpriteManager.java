@@ -35,7 +35,6 @@ public class SpriteManager {
         Texture texture = TextureFactory.createTexture(name);
 
         sprite = new MySprite(texture);
-        sprite.setPosition(-50, -50);
         sprite.setOriginCenter();
         return sprite;
     }
