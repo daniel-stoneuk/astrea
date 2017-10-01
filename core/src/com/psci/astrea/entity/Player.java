@@ -10,7 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.player.Rocket;
-
+import com.psci.astrea.entity.Bullet;
+import com.psci.astrea.screen.GameScreen;
 
 public abstract class Player extends Entity{
 
@@ -101,6 +102,7 @@ public abstract class Player extends Entity{
         }
         movePlayer();
 
+
     }
 
     private boolean checkCollisionWithAlien(Alien target) {
@@ -141,7 +143,15 @@ public abstract class Player extends Entity{
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             rotateRight();
         }
-
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            shoot();
+        }
     }
+    public void shoot(){
+        System.out.println("oof");
+        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x,getPosition().y);
+    }
+
+
 }
 

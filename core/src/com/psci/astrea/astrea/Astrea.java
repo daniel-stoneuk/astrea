@@ -1,11 +1,7 @@
 package com.psci.astrea.astrea;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.psci.astrea.screen.GameScreen;
 import com.psci.astrea.screen.MyScreen;
 
@@ -16,7 +12,6 @@ public class Astrea extends Game {
     @Override
     public void create() {
         gameScreen = new GameScreen(this);
-
         switchScreen(gameScreen);
     }
 

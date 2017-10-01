@@ -75,6 +75,7 @@ public class GameState {
 
     private void updateRoundTimer(float delta) {
         if (roundTime > 0) {
+
             roundTime -= delta;
         } else {
             roundHasStarted = true;

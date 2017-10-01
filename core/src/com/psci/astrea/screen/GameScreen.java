@@ -2,7 +2,11 @@ package com.psci.astrea.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Rectangle;
 import com.psci.astrea.astrea.Astrea;
 import com.psci.astrea.astrea.MySprite;
@@ -13,6 +17,9 @@ import com.psci.astrea.input.GameInputProcessor;
 
 import java.util.Random;
 
+import static com.psci.astrea.entity.Entity.SCREEN_HEIGHT;
+import static com.psci.astrea.entity.Entity.SCREEN_WIDTH;
+
 public class GameScreen extends MyScreen {
 
     Astrea astrea;
@@ -22,14 +29,13 @@ public class GameScreen extends MyScreen {
 //    MySprite alien;
 //    MySprite asteroid;
 
-    SpriteBatch spriteBatch;
+    public static SpriteBatch spriteBatch;
 
 
     private GameState gameState;
-
     public GameScreen(Astrea astrea) {
         this.astrea = astrea;
-        SpriteManager spriteManager = SpriteManager.getInstance();
+        //SpriteManager spriteManager = SpriteManager.getInstance();
         gameState = GameState.getInstance();
 
         spriteBatch = new SpriteBatch();
@@ -68,7 +74,6 @@ public class GameScreen extends MyScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
 
         gameState.render(spriteBatch);
-
 //        spriteBatch.begin();
 //        alienRectangle = alien.getBoundingRectangle();
 //        starRectangle = star.getBoundingRectangle();
@@ -130,6 +135,7 @@ public class GameScreen extends MyScreen {
 
     @Override
     public void dispose() {
+
 
     }
 }
