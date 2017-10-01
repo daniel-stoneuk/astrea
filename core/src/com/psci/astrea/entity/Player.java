@@ -102,6 +102,7 @@ public abstract class Player extends Entity{
             control();
         }
         movePlayer();
+
     }
 
     private boolean checkCollisionWithAlien(Alien target) {
@@ -112,10 +113,7 @@ public abstract class Player extends Entity{
     private void movePlayer() {
         position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
         position.y = position.y + (int) (Math.cos(Math.toRadians(angle)) * speed);
-    }
-
-    private void control() {
-
+        // Check if rocket is out of frame
         if (position.x >= Gdx.graphics.getWidth()){
             position.x = 0;
         }else if (position.y >= Gdx.graphics.getHeight()){
@@ -127,6 +125,10 @@ public abstract class Player extends Entity{
         else if (position.x <= 0 ){
             position.x = Gdx.graphics.getWidth();
         }
+    }
+
+    private void control() {
+
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             moveForwards();
         }
