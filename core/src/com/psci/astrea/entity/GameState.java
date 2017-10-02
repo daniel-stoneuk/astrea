@@ -20,27 +20,26 @@ public class GameState {
 
     private float roundTime;
 
+
     private List<Player> players;
+
     private Sun sun;
+
     private List<Alien> aliens;
+
     private List<Bullet> bullets;
+    private List<Bullet> bulletsDeleteQueue;
+
     private List<Asteroid> asteroids;
 
 
     private boolean roundHasStarted;
 
-    public static synchronized GameState getInstance() {
+    public static GameState getInstance() {
         if (instance == null) {
             instance = new GameState();
         }
         return instance;
-    }
-
-    /**
-     * Game state cannot be instantiated outside of the class. To get a reference to this object, call the static method getInstance().
-     */
-    private GameState() {
-        instance = this;
     }
 
     public void initialize() {
@@ -55,7 +54,10 @@ public class GameState {
         aliens.add(Alien.createAlien("alien"));
         aliens.add(Alien.createAlien("alien"));
         aliens.add(Alien.createAlien("alien"));
+
         bullets = new ArrayList<Bullet>();
+        bulletsDeleteQueue = new ArrayList<Bullet>();
+
         sun = Sun.create("sun");
         asteroids = new ArrayList<Asteroid>();
     }
@@ -67,11 +69,14 @@ public class GameState {
 
         if (roundHasStarted) {
 
+            checkDeleteQueue();
+
             timeUntilAsteroid -= delta;
             if (timeUntilAsteroid <= 0) {
                 asteroids.add(Asteroid.createAsteroid("asteroid"));
                 timeUntilAsteroid = 2;
             }
+
             for (Player player : players)
                 player.update(delta);
 
@@ -81,15 +86,24 @@ public class GameState {
             if (sun != null) {
                 sun.update(delta);
             }
+
             for (Bullet bullet : bullets) {
                 bullet.update(delta);
             }
 
-for (Asteroid asteroids : asteroids)
-    asteroids.update(delta);
+            for (Asteroid asteroids : asteroids)
+                asteroids.update(delta);
         }
     }
 
+    private void checkDeleteQueue() {
+        bullets.removeAll(bulletsDeleteQueue);
+    }
+
+
+    public void deleteBullet(Bullet bullet) {
+        bulletsDeleteQueue.add(bullet);
+    }
 
     private void updateRoundTimer(float delta) {
         if (roundTime > 0) {
@@ -139,6 +153,7 @@ for (Asteroid asteroids : asteroids)
         }
         spriteBatch.end();
     }
+
     private void displaySun(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         if (sun != null) {

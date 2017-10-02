@@ -60,16 +60,10 @@ public class Bullet extends Entity {
 
         moveBullet();
 
-        Iterator<Bullet> iter = GameState.getInstance().getBullets().iterator();
-
-        while (iter.hasNext()) {
-            Bullet bullet = iter.next();
-            if (bullet == this) {
-                if (position.x >= Gdx.graphics.getWidth() || position.y >= Gdx.graphics.getHeight() || position.y <= 0 || position.x <= 0) {
-                    iter.remove();
-                }
-            }
+        if (position.x >= Gdx.graphics.getWidth() || position.y >= Gdx.graphics.getHeight() || position.y <= 0 || position.x <= 0) {
+            GameState.getInstance().deleteBullet(this);
         }
+
     }
 
     private boolean checkCollisionWithAlien(Alien target) {
