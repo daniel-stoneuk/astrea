@@ -5,8 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.*;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.player.Rocket;
@@ -99,22 +98,23 @@ public abstract class Player extends Entity {
                 alien.collidedWithPlayer();
             }
         }
-        for (int i = 0; i < 1; i++) {
-            collided = checkCollisionWithSun(state.getSun());
-            if (collided) {
-                float speed1 = speed;
-                Sun.collidedWithPlayer(speed1);
-                this.speed = speed1;
-            }
+
+        collided = checkCollisionWithSun(state.getSun());
+        if (collided) {
+            this.speed = -speed - 1f;
         }
 
         if (!collided) {
             control();
         }
-
         movePlayer();
 
+    }
 
+    private boolean checkCollisionWithSun(Sun target) {
+        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() /2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2);
+        Circle circle = new Circle(getPosition().x + getSprite().getWidth() /2, getPosition().y + getSprite().getHeight() /2, getSprite().getWidth() / 2);
+        return circle.overlaps(circleSun);
     }
 
     private boolean checkCollisionWithAlien(Alien target) {
@@ -122,9 +122,26 @@ public abstract class Player extends Entity {
         return minRect.overlaps(target.getSprite().getBoundingRectangle());
     }
 
-    private boolean checkCollisionWithSun(Sun target) {
-        Rectangle minRect = sprite.getBoundingRectangle();
-        return minRect.overlaps(target.getSprite().getBoundingRectangle());
+    // Check if Polygon intersects Circle
+    private boolean isCollision(Polygon p, Circle c) {
+        float[] vertices = p.getTransformedVertices();
+        Vector2 center = new Vector2(c.x, c.y);
+        float squareRadius = c.radius * c.radius;
+        for (int i = 0; i < vertices.length; i += 2) {
+            if (i == 0) {
+                if (Intersector.intersectSegmentCircle(new Vector2(
+                        vertices[vertices.length - 2],
+                        vertices[vertices.length - 1]), new Vector2(
+                        vertices[i], vertices[i + 1]), center, squareRadius))
+                    return true;
+            } else {
+                if (Intersector.intersectSegmentCircle(new Vector2(
+                        vertices[i - 2], vertices[i - 1]), new Vector2(
+                        vertices[i], vertices[i + 1]), center, squareRadius))
+                    return true;
+            }
+        }
+        return false;
     }
 
     private void movePlayer() {
