@@ -17,7 +17,7 @@ public class GameState {
 
     private static final float ROUND_DURATION = 60;
 
-    private static final float PRE_ROUND_WAIT_DURATION = 5;
+    private static final float PRE_ROUND_WAIT_DURATION = 2;
 
     private BitmapFont font = new BitmapFont(); //or use alex answer to use custom font
 
@@ -26,12 +26,14 @@ public class GameState {
     private List<Player> players;
     private Sun sun;
     private List<Alien> aliens;
+    private List<Bullet> bullets;
 
     private boolean roundHasStarted;
 
-    public static GameState getInstance() {
-        if (instance == null)
+    public static synchronized GameState getInstance() {
+        if (instance == null) {
             instance = new GameState();
+        }
         return instance;
     }
 
@@ -54,12 +56,12 @@ public class GameState {
         aliens.add(Alien.createAlien("alien"));
         aliens.add(Alien.createAlien("alien"));
         aliens.add(Alien.createAlien("alien"));
+        bullets = new ArrayList<Bullet>();
         sun = Sun.create("sun");
     }
 
     public void update(float delta) {
         updateRoundTimer(delta);
-
 
         if (roundHasStarted) {
             for (Player player : players)
@@ -71,6 +73,9 @@ public class GameState {
             if (sun != null) {
                 sun.update(delta);
             }
+            for (Bullet bullet : bullets) {
+                bullet.update(delta);
+            }
 
         }
 
@@ -78,7 +83,6 @@ public class GameState {
 
     private void updateRoundTimer(float delta) {
         if (roundTime > 0) {
-
             roundTime -= delta;
         } else {
             roundHasStarted = true;
@@ -90,6 +94,7 @@ public class GameState {
         if (roundHasStarted) {
             displayAliens(spriteBatch);
             displaySun(spriteBatch);
+            displayBullets(spriteBatch);
             displayPlayers(spriteBatch);
 
         } else {
@@ -104,6 +109,14 @@ public class GameState {
         spriteBatch.begin();
         for (Player player : players) {
             player.draw(spriteBatch);
+        }
+        spriteBatch.end();
+    }
+
+    private void displayBullets(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        for (Bullet bullet : bullets) {
+            bullet.draw(spriteBatch);
         }
         spriteBatch.end();
     }
@@ -124,6 +137,10 @@ public class GameState {
         spriteBatch.end();
     }
 
+    public void shootBullet(Player player) {
+        bullets.add(Bullet.createBullet(player, "bullet"));
+    }
+
     public List<Player> getPlayers() {
         return players;
     }
@@ -133,5 +150,9 @@ public class GameState {
     }
     public Sun getSun() {
         return sun;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 }

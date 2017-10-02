@@ -19,9 +19,8 @@ public abstract class Player extends Entity {
 
     protected float angle;
     private int health;
-
-
     public float speed;
+    private float cooldown;
 
     public Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
@@ -83,6 +82,7 @@ public abstract class Player extends Entity {
 
     public void update(float delta) {
         super.update(delta);
+        cooldown = cooldown - delta;
         if (speed <= -SPEED_DECREASE) {
             speed += SPEED_DECREASE;
         } else if (speed >= SPEED_DECREASE) {
@@ -112,8 +112,8 @@ public abstract class Player extends Entity {
     }
 
     private boolean checkCollisionWithSun(Sun target) {
-        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() /2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2);
-        Circle circle = new Circle(getPosition().x + getSprite().getWidth() /2, getPosition().y + getSprite().getHeight() /2, getSprite().getWidth() / 2);
+        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() / 2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2);
+        Circle circle = new Circle(getPosition().x + getSprite().getWidth() / 2, getPosition().y + getSprite().getHeight() / 2, getSprite().getWidth() / 2);
         return circle.overlaps(circleSun);
     }
 
@@ -122,27 +122,6 @@ public abstract class Player extends Entity {
         return minRect.overlaps(target.getSprite().getBoundingRectangle());
     }
 
-    // Check if Polygon intersects Circle
-    private boolean isCollision(Polygon p, Circle c) {
-        float[] vertices = p.getTransformedVertices();
-        Vector2 center = new Vector2(c.x, c.y);
-        float squareRadius = c.radius * c.radius;
-        for (int i = 0; i < vertices.length; i += 2) {
-            if (i == 0) {
-                if (Intersector.intersectSegmentCircle(new Vector2(
-                        vertices[vertices.length - 2],
-                        vertices[vertices.length - 1]), new Vector2(
-                        vertices[i], vertices[i + 1]), center, squareRadius))
-                    return true;
-            } else {
-                if (Intersector.intersectSegmentCircle(new Vector2(
-                        vertices[i - 2], vertices[i - 1]), new Vector2(
-                        vertices[i], vertices[i + 1]), center, squareRadius))
-                    return true;
-            }
-        }
-        return false;
-    }
 
     private void movePlayer() {
         position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
@@ -176,15 +155,20 @@ public abstract class Player extends Entity {
             rotateRight();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            shoot();
+            if (cooldown <= 0)
+                shoot();
         }
     }
 
     public void shoot() {
-        System.out.println(angle);
-        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x, getPosition().y, angle);
+        cooldown = 0.2f;
+        GameState state = GameState.getInstance();
+        state.shootBullet(this);
     }
 
 
+    public float getAngle() {
+        return this.angle;
+    }
 }
 
