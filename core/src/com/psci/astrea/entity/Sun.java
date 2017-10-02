@@ -32,7 +32,7 @@ public class Sun extends Entity {
     }
 
     public static float collidedWithPlayer(float speed) {
-        speed = -speed;
+
         return speed;
     }
     public static Sun create(String type){

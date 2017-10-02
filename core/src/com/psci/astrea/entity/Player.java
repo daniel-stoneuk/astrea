@@ -13,16 +13,18 @@ import com.psci.astrea.entity.player.Rocket;
 import com.psci.astrea.entity.Bullet;
 import com.psci.astrea.screen.GameScreen;
 
-public abstract class Player extends Entity{
+public abstract class Player extends Entity {
 
     public static final float MAX_SPEED = 6f;
     public static final float SPEED_DECREASE = 0.25f;
 
     protected float angle;
     private int health;
+
+
     public float speed;
 
-    protected Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
+    public Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
         this.health = health;
         this.speed = speed;
@@ -68,7 +70,7 @@ public abstract class Player extends Entity{
 
         SpriteManager handler = SpriteManager.getInstance();
         MySprite playerSprite = handler.getSprite(type);
-        Vector2 position = new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        Vector2 position = new Vector2(200, 200);
 
         int health = 100;
         float speed = 0f;
@@ -84,7 +86,7 @@ public abstract class Player extends Entity{
         super.update(delta);
         if (speed <= -SPEED_DECREASE) {
             speed += SPEED_DECREASE;
-        } else if (speed >= SPEED_DECREASE){
+        } else if (speed >= SPEED_DECREASE) {
             speed -= SPEED_DECREASE;
         } else {
             speed = 0f;
@@ -97,9 +99,19 @@ public abstract class Player extends Entity{
                 alien.collidedWithPlayer();
             }
         }
+        for (int i = 0; i < 1; i++) {
+            collided = checkCollisionWithSun(state.getSun());
+            if (collided) {
+                float speed1 = speed;
+                Sun.collidedWithPlayer(speed1);
+                this.speed = speed1;
+            }
+        }
+
         if (!collided) {
             control();
         }
+
         movePlayer();
 
 
@@ -110,19 +122,22 @@ public abstract class Player extends Entity{
         return minRect.overlaps(target.getSprite().getBoundingRectangle());
     }
 
+    private boolean checkCollisionWithSun(Sun target) {
+        Rectangle minRect = sprite.getBoundingRectangle();
+        return minRect.overlaps(target.getSprite().getBoundingRectangle());
+    }
+
     private void movePlayer() {
         position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
         position.y = position.y + (int) (Math.cos(Math.toRadians(angle)) * speed);
         // Check if rocket is out of frame
-        if (position.x >= Gdx.graphics.getWidth()){
+        if (position.x >= Gdx.graphics.getWidth()) {
             position.x = 0;
-        }else if (position.y >= Gdx.graphics.getHeight()){
+        } else if (position.y >= Gdx.graphics.getHeight()) {
             position.y = 0;
-        }
-        else if (position.y <= 0 ){
+        } else if (position.y <= 0) {
             position.y = Gdx.graphics.getHeight();
-        }
-        else if (position.x <= 0 ){
+        } else if (position.x <= 0) {
             position.x = Gdx.graphics.getWidth();
         }
     }
@@ -143,13 +158,14 @@ public abstract class Player extends Entity{
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             rotateRight();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             shoot();
         }
     }
-    public void shoot(){
+
+    public void shoot() {
         System.out.println(angle);
-        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x,getPosition().y,angle);
+        com.psci.astrea.entity.Bullet.spawnBullet(GameScreen.spriteBatch, getPosition().x, getPosition().y, angle);
     }
 
 

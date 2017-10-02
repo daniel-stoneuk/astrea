@@ -91,6 +91,7 @@ public class GameState {
             displayAliens(spriteBatch);
             displaySun(spriteBatch);
             displayPlayers(spriteBatch);
+
         } else {
             spriteBatch.begin();
             font.draw(spriteBatch, TimeHelper.formatSeconds(roundTime), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
@@ -129,5 +130,8 @@ public class GameState {
 
     public List<Alien> getAliens() {
         return aliens;
+    }
+    public Sun getSun() {
+        return sun;
     }
 }
