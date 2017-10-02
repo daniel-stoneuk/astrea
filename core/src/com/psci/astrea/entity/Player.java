@@ -14,7 +14,7 @@ import com.psci.astrea.screen.GameScreen;
 
 public abstract class Player extends Entity {
 
-    public static final float MAX_SPEED = 6f;
+    public static final float MAX_SPEED = 7f;
     public static final float SPEED_DECREASE = 0.25f;
     private static final float ROTATION_FACTOR = 3f;
 
@@ -145,7 +145,7 @@ public abstract class Player extends Entity {
             moveForwards();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-//            moveBackwards();
+            moveBackwards();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {

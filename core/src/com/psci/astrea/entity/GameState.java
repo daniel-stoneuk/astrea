@@ -2,6 +2,7 @@ package com.psci.astrea.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.psci.astrea.screen.helper.TimeHelper;
 
@@ -17,6 +18,7 @@ public class GameState {
     private static final float PRE_ROUND_WAIT_DURATION = 2;
 
     private BitmapFont font = new BitmapFont(); //or use alex answer to use custom font
+    private float hitCountWidth = 0;
 
     private float roundTime;
 
@@ -63,6 +65,10 @@ public class GameState {
 
         asteroids = new ArrayList<Asteroid>();
         asteroidsDeleteQueue = new ArrayList<Asteroid>();
+
+        GlyphLayout layout = new GlyphLayout(); //dont do this every frame! Store it as member
+        layout.setText(font, "Asteroids Missed: 123");
+        hitCountWidth = layout.width;
     }
 
     float timeUntilAsteroid = 0;
@@ -83,6 +89,7 @@ public class GameState {
             if (timeUntilAsteroid <= 0) {
                 asteroids.add(Asteroid.createAsteroid("asteroid"));
                 timeUntilAsteroid = 2;
+                System.out.println("Asteroid created");
             }
 
             for (Player player : players)
@@ -136,7 +143,9 @@ public class GameState {
             displaySun(spriteBatch);
             displayBullets(spriteBatch);
             displayPlayers(spriteBatch);
-
+            spriteBatch.begin();
+            font.draw(spriteBatch, "Asteroids Missed: " + sun.getHits(), Gdx.graphics.getWidth() - hitCountWidth , Gdx.graphics.getHeight());
+            spriteBatch.end();
         } else {
             spriteBatch.begin();
             font.draw(spriteBatch, TimeHelper.formatSeconds(roundTime), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);

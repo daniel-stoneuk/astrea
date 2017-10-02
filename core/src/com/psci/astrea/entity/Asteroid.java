@@ -1,5 +1,6 @@
 package com.psci.astrea.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
@@ -13,7 +14,9 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 public class Asteroid extends Entity {
 
-    public static final float SPEED = 8;
+    public static final float SPEED = 5;
+
+    public float existence = 0;
 
     public float angle;
     private float speed;
@@ -95,10 +98,16 @@ public class Asteroid extends Entity {
 
     public void update(float delta) {
         super.update(delta);
+        existence += delta;
 
-        boolean collision = checkCollisionWithSun(GameState.getInstance().getSun());
+        boolean collisionWithSun = checkCollisionWithSun(GameState.getInstance().getSun());
 
-        if (collision) {
+        if (collisionWithSun) {
+            GameState.getInstance().getSun().incrementHits();
+            GameState.getInstance().deleteAsteroid(this);
+        }
+
+        if ((position.x >= Gdx.graphics.getWidth() || position.y >= Gdx.graphics.getHeight() || position.y <= 0 || position.x <= 0) && existence > 4) {
             GameState.getInstance().deleteAsteroid(this);
         }
 
@@ -106,7 +115,7 @@ public class Asteroid extends Entity {
     }
 
     private boolean checkCollisionWithSun(Sun target) {
-        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() / 2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2 - getSprite().getWidth());
+        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() / 2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2);
         Circle circle = new Circle(getPosition().x + getSprite().getWidth() / 2, getPosition().y + getSprite().getHeight() / 2, getSprite().getWidth() / 2);
         return circle.overlaps(circleSun);
     }
