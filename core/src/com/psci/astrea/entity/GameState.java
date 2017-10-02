@@ -27,6 +27,8 @@ public class GameState {
     private Sun sun;
     private List<Alien> aliens;
     private List<Bullet> bullets;
+    private List<Asteroids> asteroids;
+
 
     private boolean roundHasStarted;
 
@@ -58,7 +60,11 @@ public class GameState {
         aliens.add(Alien.createAlien("alien"));
         bullets = new ArrayList<Bullet>();
         sun = Sun.create("sun");
+        asteroids = new ArrayList<Asteroids>();
+        asteroids.add(Asteroids.createAsteroid("asteroid"));
     }
+
+
 
     public void update(float delta) {
         updateRoundTimer(delta);
@@ -77,9 +83,11 @@ public class GameState {
                 bullet.update(delta);
             }
 
+for (Asteroids asteroids : asteroids)
+    asteroids.update(delta);
         }
-
     }
+
 
     private void updateRoundTimer(float delta) {
         if (roundTime > 0) {
@@ -96,6 +104,7 @@ public class GameState {
             displaySun(spriteBatch);
             displayBullets(spriteBatch);
             displayPlayers(spriteBatch);
+            displayAsteroids(spriteBatch);
 
         } else {
             spriteBatch.begin();
@@ -121,6 +130,14 @@ public class GameState {
         spriteBatch.end();
     }
 
+    private void displayAsteroids(SpriteBatch spriteBatch) {
+        spriteBatch.begin();
+        for (Asteroids asteroid : asteroids) {
+            System.out.println(asteroid.position.x + "   " + asteroid.position.y);
+            asteroid.draw(spriteBatch);
+        }
+        spriteBatch.end();
+    }
     private void displaySun(SpriteBatch spriteBatch) {
         spriteBatch.begin();
         if (sun != null) {
@@ -145,9 +162,14 @@ public class GameState {
         return players;
     }
 
+    public List<Asteroids> getAsteroids() {
+        return asteroids;
+    }
+
     public List<Alien> getAliens() {
         return aliens;
     }
+
     public Sun getSun() {
         return sun;
     }
