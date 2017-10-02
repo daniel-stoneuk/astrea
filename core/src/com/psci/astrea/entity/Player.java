@@ -1,18 +1,13 @@
-<<<<<<< HEAD
-=======
 package com.psci.astrea.entity;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.player.Rocket;
-import com.psci.astrea.entity.Bullet;
-import com.psci.astrea.screen.GameScreen;
 
 public abstract class Player extends Entity {
 
@@ -174,5 +169,4 @@ public abstract class Player extends Entity {
         return this.angle;
     }
 }
->>>>>>> d8991a40db742965e11c50315adc7b446c008486
 
