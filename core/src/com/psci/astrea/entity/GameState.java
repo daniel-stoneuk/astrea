@@ -58,15 +58,20 @@ public class GameState {
         bullets = new ArrayList<Bullet>();
         sun = Sun.create("sun");
         asteroids = new ArrayList<Asteroid>();
-        asteroids.add(Asteroid.createAsteroid("asteroid"));
     }
 
-
+    float timeUntilAsteroid = 0;
 
     public void update(float delta) {
         updateRoundTimer(delta);
 
         if (roundHasStarted) {
+
+            timeUntilAsteroid -= delta;
+            if (timeUntilAsteroid <= 0) {
+                asteroids.add(Asteroid.createAsteroid("asteroid"));
+                timeUntilAsteroid = 2;
+            }
             for (Player player : players)
                 player.update(delta);
 

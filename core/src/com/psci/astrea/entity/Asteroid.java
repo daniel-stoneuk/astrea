@@ -31,25 +31,21 @@ public class Asteroid extends Entity {
         int y = 0;
         Random rd = new Random();
         switch (rd.nextInt(3)) {
-
             case 0:
-                y = rd.nextInt(1000);
                 x = 0;
-
+                y = rd.nextInt(SCREEN_HEIGHT);
                 break;
             case 1:
-                x = rd.nextInt(700);
+                x = rd.nextInt(SCREEN_WIDTH);
                 y = 0;
-
                 break;
             case 2:
-                y = rd.nextInt(1000);
-                x = 1000;
-
+                x = SCREEN_WIDTH;
+                y = rd.nextInt(SCREEN_HEIGHT);
                 break;
             case 3:
-                x = rd.nextInt(700);
-                y = 700;
+                x = rd.nextInt(SCREEN_WIDTH);
+                y = SCREEN_HEIGHT;
                 break;
 
         }
@@ -61,27 +57,22 @@ public class Asteroid extends Entity {
         Vector2 position = new Vector2(x, y);
         Vector2 center = new Vector2(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2);
 
-        Vector2 v1 = position.cpy().sub(center);
-        Vector2 v2 = position.cpy().sub(center);
-        float angle1 = v1.angle();
-        float angle2 = v2.angle();
+        float dx = center.x - x;
+        float dy = center.y - y;
+        float angle = (float) Math.toDegrees(Math.atan2(Math.abs(dy),Math.abs(dx)));
+        if (dx > 0 && dy < 0) {
+            angle += 90;
+        } else if (dx > 0 && dy > 0) {
+            angle = 90 - angle;
+        } else if (dx < 0 && dy < 0) {
+            angle = 270 - angle;
+        } else if (dx < 0 && dy > 0){
+            angle += 270;
+        }
+        angle = getAngle(angle);
 
-        float angleBetween = Math.abs(angle1 - angle2);
-//If the angle is more then 180 then comparing the other way around would be shorter.
-        if (angleBetween > 180)
-            angleBetween = 360 - angleBetween;
 
-
-        float dx = x - SCREEN_WIDTH / 2;
-        float dy = y - SCREEN_HEIGHT / 2;
-        System.out.println(position.x + " " + position.y);
-        System.out.println(position.angle(center));
-        float angle = (float) Math.toDegrees(Math.atan2(dy,dx));
-        System.out.println(angle);
-
-        position.sub(center);
-
-        asteroid = new Asteroid(asteroidSprite,thePosition, (float) angleBetween, SPEED);
+        asteroid = new Asteroid(asteroidSprite,thePosition, angle , SPEED);
 
         return asteroid;
     }
@@ -91,7 +82,7 @@ public class Asteroid extends Entity {
         sprite.draw(spriteBatch);
     }
 
-    private float getAngle(float a) {
+    private static float getAngle(float a) {
         while (a < 0) {
             a += 360f;
         }
@@ -100,7 +91,6 @@ public class Asteroid extends Entity {
         }
         return a;
     }
-
 
     public void update(float delta) {
         super.update(delta);
