@@ -5,11 +5,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.psci.astrea.screen.helper.TimeHelper;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.psci.astrea.screen.GameScreen.spriteBatch;
 
 public class GameState {
 
@@ -27,7 +24,7 @@ public class GameState {
     private Sun sun;
     private List<Alien> aliens;
     private List<Bullet> bullets;
-    private List<Asteroids> asteroids;
+    private List<Asteroid> asteroids;
 
 
     private boolean roundHasStarted;
@@ -60,8 +57,8 @@ public class GameState {
         aliens.add(Alien.createAlien("alien"));
         bullets = new ArrayList<Bullet>();
         sun = Sun.create("sun");
-        asteroids = new ArrayList<Asteroids>();
-        asteroids.add(Asteroids.createAsteroid("asteroid"));
+        asteroids = new ArrayList<Asteroid>();
+        asteroids.add(Asteroid.createAsteroid("asteroid"));
     }
 
 
@@ -83,7 +80,7 @@ public class GameState {
                 bullet.update(delta);
             }
 
-for (Asteroids asteroids : asteroids)
+for (Asteroid asteroids : asteroids)
     asteroids.update(delta);
         }
     }
@@ -132,8 +129,7 @@ for (Asteroids asteroids : asteroids)
 
     private void displayAsteroids(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        for (Asteroids asteroid : asteroids) {
-            System.out.println(asteroid.position.x + "   " + asteroid.position.y);
+        for (Asteroid asteroid : asteroids) {
             asteroid.draw(spriteBatch);
         }
         spriteBatch.end();
@@ -162,7 +158,7 @@ for (Asteroids asteroids : asteroids)
         return players;
     }
 
-    public List<Asteroids> getAsteroids() {
+    public List<Asteroid> getAsteroids() {
         return asteroids;
     }
 
