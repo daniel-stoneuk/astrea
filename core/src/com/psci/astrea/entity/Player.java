@@ -144,7 +144,7 @@ public abstract class Player extends Entity {
             moveForwards();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            moveBackwards();
+//            moveBackwards();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
