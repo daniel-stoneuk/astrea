@@ -13,12 +13,11 @@ import java.util.Random;
 public class Sun extends Entity {
 
     // Percentage
-    private int size;
+    private int hits;
 
-    private Sun(MySprite sprite, Vector2 position, int size) {
+    private Sun(MySprite sprite, Vector2 position) {
         super(sprite);
         this.position = position;
-        this.size = size;
     }
 
 
@@ -41,11 +40,23 @@ public class Sun extends Entity {
         Vector2 position = new Vector2((SCREEN_WIDTH / 2) - starSprite.getWidth() / 2, (SCREEN_HEIGHT / 2) - starSprite.getHeight() / 2);
 
         if (type.equals("sun")) {
-            sun = new Sun(starSprite, position, 1);
+            sun = new Sun(starSprite, position);
         }
 
 
         return sun;
+    }
+
+    public void incrementHits() {
+        hits += 1;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
     }
 
     public float getWidth() {
