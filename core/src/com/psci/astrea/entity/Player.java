@@ -16,6 +16,7 @@ public abstract class Player extends Entity {
 
     public static final float MAX_SPEED = 6f;
     public static final float SPEED_DECREASE = 0.25f;
+    private static final float ROTATION_FACTOR = 3f;
 
     protected float angle;
     private int health;
@@ -46,11 +47,11 @@ public abstract class Player extends Entity {
     }
 
     public void rotateLeft() {
-        angle = getAngle(angle - 2.5f);
+        angle = getAngle(angle - ROTATION_FACTOR);
     }
 
     public void rotateRight() {
-        angle = getAngle(angle + 2.5f);
+        angle = getAngle(angle + ROTATION_FACTOR);
     }
 
     public void moveForwards() {

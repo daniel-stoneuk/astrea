@@ -31,6 +31,7 @@ public class GameState {
     private List<Bullet> bulletsDeleteQueue;
 
     private List<Asteroid> asteroids;
+    private List<Asteroid> asteroidsDeleteQueue;
 
 
     private boolean roundHasStarted;
@@ -59,12 +60,19 @@ public class GameState {
         bulletsDeleteQueue = new ArrayList<Bullet>();
 
         sun = Sun.create("sun");
+
         asteroids = new ArrayList<Asteroid>();
+        asteroidsDeleteQueue = new ArrayList<Asteroid>();
     }
 
     float timeUntilAsteroid = 0;
 
     public void update(float delta) {
+//        System.out.println(" ----- GAME STATE ----- ");
+//        System.out.println("Bullet delete queue size: " + bulletsDeleteQueue.size());
+//        System.out.println("Bullet count: " + bullets.size());
+//        System.out.println("Asteroid count: " + asteroids.size());
+
         updateRoundTimer(delta);
 
         if (roundHasStarted) {
@@ -98,8 +106,15 @@ public class GameState {
 
     private void checkDeleteQueue() {
         bullets.removeAll(bulletsDeleteQueue);
+        bulletsDeleteQueue.clear();
+
+        asteroids.removeAll(asteroidsDeleteQueue);
+        asteroidsDeleteQueue.clear();
     }
 
+    public void deleteAsteroid(Asteroid asteroid) {
+        asteroidsDeleteQueue.add(asteroid);
+    }
 
     public void deleteBullet(Bullet bullet) {
         bulletsDeleteQueue.add(bullet);
@@ -117,10 +132,10 @@ public class GameState {
     public void render(SpriteBatch spriteBatch) {
         if (roundHasStarted) {
             displayAliens(spriteBatch);
+            displayAsteroids(spriteBatch);
             displaySun(spriteBatch);
             displayBullets(spriteBatch);
             displayPlayers(spriteBatch);
-            displayAsteroids(spriteBatch);
 
         } else {
             spriteBatch.begin();

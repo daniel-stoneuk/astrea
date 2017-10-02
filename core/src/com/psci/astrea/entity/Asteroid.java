@@ -2,6 +2,7 @@ package com.psci.astrea.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
@@ -94,12 +95,29 @@ public class Asteroid extends Entity {
 
     public void update(float delta) {
         super.update(delta);
+
+        boolean collision = checkCollisionWithSun(GameState.getInstance().getSun());
+
+        if (collision) {
+            GameState.getInstance().deleteAsteroid(this);
+        }
+
         moveAsteroid();
+    }
+
+    private boolean checkCollisionWithSun(Sun target) {
+        Circle circleSun = new Circle(target.getPosition().x + target.getWidth() / 2, target.getPosition().y + target.getHeight() / 2, target.getWidth() / 2 - getSprite().getWidth());
+        Circle circle = new Circle(getPosition().x + getSprite().getWidth() / 2, getPosition().y + getSprite().getHeight() / 2, getSprite().getWidth() / 2);
+        return circle.overlaps(circleSun);
     }
 
     private void moveAsteroid() {
         position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
         position.y = position.y + (int) (Math.cos(Math.toRadians(angle)) * speed);
+    }
+
+    public void collidedWithBullet() {
+        GameState.getInstance().deleteAsteroid(this);
     }
 
 

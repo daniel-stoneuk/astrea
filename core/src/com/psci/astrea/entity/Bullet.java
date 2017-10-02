@@ -1,16 +1,12 @@
 package com.psci.astrea.entity;
 
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
-import com.psci.astrea.entity.player.Rocket;
-
-import java.util.Iterator;
 
 /**
  * Created by Dan Stone on 01/10/2017.
@@ -58,6 +54,15 @@ public class Bullet extends Entity {
             }
         }
 
+        collided = false;
+        for (Asteroid asteroid : state.getAsteroids()) {
+            collided = checkCollisionWithAsteroid(asteroid);
+            if (collided) {
+                asteroid.collidedWithBullet();
+                GameState.getInstance().deleteBullet(this);
+            }
+        }
+
         moveBullet();
 
         if (position.x >= Gdx.graphics.getWidth() || position.y >= Gdx.graphics.getHeight() || position.y <= 0 || position.x <= 0) {
@@ -71,6 +76,10 @@ public class Bullet extends Entity {
         return minRect.overlaps(target.getSprite().getBoundingRectangle());
     }
 
+    private boolean checkCollisionWithAsteroid(Asteroid target) {
+        Rectangle minRect = sprite.getBoundingRectangle();
+        return minRect.overlaps(target.getSprite().getBoundingRectangle());
+    }
 
     private void moveBullet() {
         position.x = position.x + (int) (Math.sin(Math.toRadians(angle)) * speed);
