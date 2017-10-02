@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 
+import java.util.Random;
+
 /**
  * Sun class will only ever exist as one object type.
  */
@@ -29,7 +31,10 @@ public class Sun extends Entity {
         sprite.draw(spriteBatch);
     }
 
-
+    public static float collidedWithPlayer(float speed) {
+        speed = -speed;
+        return speed;
+    }
     public static Sun create(String type){
         Sun sun = null;
         MySprite starSprite = SpriteManager.getInstance().getSprite(type);
@@ -39,6 +44,15 @@ public class Sun extends Entity {
             sun = new Sun(starSprite, position, 1);
         }
 
+
         return sun;
+    }
+
+    public float getWidth() {
+        return sprite.getWidth();
+    }
+
+    public float getHeight() {
+        return sprite.getHeight();
     }
 }
