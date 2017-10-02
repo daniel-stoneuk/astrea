@@ -34,18 +34,18 @@ public class Asteroid extends Entity {
         switch (rd.nextInt(3)) {
             case 0:
                 x = 0;
-                y = rd.nextInt(SCREEN_HEIGHT);
+                y = rd.nextInt(SCREEN_HEIGHT+200);
                 break;
             case 1:
-                x = rd.nextInt(SCREEN_WIDTH);
+                x = rd.nextInt(SCREEN_WIDTH+200);
                 y = 0;
                 break;
             case 2:
                 x = SCREEN_WIDTH;
-                y = rd.nextInt(SCREEN_HEIGHT);
+                y = rd.nextInt(SCREEN_HEIGHT+200);
                 break;
             case 3:
-                x = rd.nextInt(SCREEN_WIDTH);
+                x = rd.nextInt(SCREEN_WIDTH+200);
                 y = SCREEN_HEIGHT;
                 break;
 

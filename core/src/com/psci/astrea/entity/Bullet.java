@@ -98,7 +98,7 @@ public class Bullet extends Entity {
 
 
         if (type.equals("bullet")) {
-            bullet = new Bullet(bulletSprite, position, angle, SPEED);
+            bullet = new Bullet(bulletSprite, position, angle, SPEED * 5);
         }
         return bullet;
     }

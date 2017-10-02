@@ -61,7 +61,7 @@ public class GameState {
 
         sun = Sun.create("sun");
 
-        asteroids = new ArrayList<Asteroid>();
+        asteroids = new ArrayList< Asteroid>();
         asteroidsDeleteQueue = new ArrayList<Asteroid>();
     }
 
