@@ -1,14 +1,11 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 5cdab0e389bda6aa867965421ad3c05f942ff976
 package com.psci.astrea.entity;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.math.Rectangle;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.player.Rocket;
@@ -32,6 +29,8 @@ public abstract class Player extends Entity {
         this.angle = angle;
         this.position = position;
     }
+
+
 
     public void draw(SpriteBatch spriteBatch) {
         sprite.setRotation(360f - getAngle((angle)));

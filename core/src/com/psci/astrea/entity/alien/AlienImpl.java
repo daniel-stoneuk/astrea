@@ -7,7 +7,7 @@ import com.psci.astrea.entity.Alien;
 public class AlienImpl extends Alien {
 
 
-    public AlienImpl(MySprite sprite, Vector2 position) {
-        super(sprite, position);
+    public AlienImpl(MySprite sprite, Vector2 position, float angle, float speed) {
+        super(sprite, position, angle, speed);
     }
 }
