@@ -16,8 +16,12 @@ import static com.psci.astrea.entity.Asteroid.SPEED;
 
 
 public class Alien extends Entity {
+
+    public static final float SPEED = 1f;
+
     public float angle;
     private float speed;
+
     protected Alien(MySprite sprite, Vector2 position, float angle, float speed) {
         super(sprite);
         this.position = position;
@@ -38,36 +42,15 @@ public class Alien extends Entity {
 
     public static Alien createAlien(String type) {
         Alien alien = null;
-        int x = 600;
-        int y = 600;
         Random random = new Random();
         SpriteManager handler = SpriteManager.getInstance();
         MySprite alienSprite = handler.getSprite(type);
         Vector2 position = new Vector2(random.nextInt(SCREEN_WIDTH), random.nextInt(SCREEN_HEIGHT));
-        Vector2 thePosition = new Vector2(x, y);
-        Vector2 center = new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 
-
-
-        float dx = center.x - x;
-        float dy = center.y - y;
-        float angle = (float) Math.toDegrees(Math.atan2(Math.abs(dy), Math.abs(dx)));
-        if (dx > 0 && dy < 0) {
-            angle += 90;
-        } else if (dx > 0 && dy > 0) {
-            angle = 90 - angle;
-        } else if (dx < 0 && dy < 0) {
-            angle = 270 - angle;
-        } else if (dx < 0 && dy > 0) {
-            angle += 270;
-        }
-        angle = getAngle(angle);
-
-
-        alien = new Alien(alienSprite, thePosition, angle, SPEED);
+        alien = new Alien(alienSprite, position, 0, SPEED);
         if (type.equals("alien")) {
-            alien = new AlienImpl(alienSprite, position, angle, SPEED);
+            alien = new AlienImpl(alienSprite, position, 0, SPEED);
         }
         return alien;
     }
@@ -85,6 +68,48 @@ public class Alien extends Entity {
 
     public void update(float delta) {
         super.update(delta);
+
+        GameState state = GameState.getInstance();
+        if (state.getPlayers().size() == 1) {
+            Player player = state.getPlayers().get(0);
+            if (player.getPosition().x > position.x)
+                position.x += SPEED;
+            if (player.getPosition().x < position.x)
+                position.x -= SPEED;
+            if (player.getPosition().y > position.y)
+                position.y += SPEED;
+            if (player.getPosition().y < position.y)
+                position.y -= SPEED;
+
+
+            float dx = player.getPosition().x - position.x;
+            float dy = player.getPosition().y - position.y;
+            float angle = (float) Math.toDegrees(Math.atan2(Math.abs(dy), Math.abs(dx)));
+            if (dx > 0 && dy < 0) {
+                angle += 90;
+            } else if (dx > 0 && dy > 0) {
+                angle = 90 - angle;
+            } else if (dx < 0 && dy < 0) {
+                angle = 270 - angle;
+            } else if (dx < 0 && dy > 0) {
+                angle += 270;
+            }
+            if (dy == 0)
+                if (position.x > player.getPosition().x)
+                    angle = 270;
+                else
+                    angle = 90;
+            else if (dx == 0) {
+                if (position.y > player.getPosition().y)
+                    angle = 180;
+                else
+                    angle = 0;
+            }
+            this.angle = getAngle(angle);
+
+        }
+
+
     }
 }
 

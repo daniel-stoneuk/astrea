@@ -89,24 +89,6 @@ public class Bullet extends Entity {
         position.y = position.y + (int) (Math.cos(Math.toRadians(angle)) * speed);
     }
 
-    public static List<Bullet> createBulletSpray(Player player, String type) {
-        SpriteManager handler = SpriteManager.getInstance();
-        MySprite bulletSprite = handler.getSprite(type);
-        ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-        float angle = player.getAngle();
-        Vector2 position = new Vector2(
-                (player.getPosition().x + player.getSprite().getWidth() / 2) + (float) Math.sin(Math.toRadians(angle)) * 10 - bulletSprite.getWidth() / 2,
-                (player.getPosition().y + player.getSprite().getHeight() / 2) + (float) Math.cos(Math.toRadians(angle)) * 10 - bulletSprite.getHeight() / 2);
-
-//        bullets.add(createBullet(bulletSprite, getAngle(-90f), position, type));
-//        bulletSprite = handler.getSprite(type);
-        bullets.add(createBullet(bulletSprite, getAngle(angle), position, type));
-        bullets.add(createBullet(bulletSprite, getAngle(10), position, type));
-//        bulletSprite = handler.getSprite(type);
-//        bullets.add(createBullet(bulletSprite, getAngle(90), position, type));
-        return bullets;
-    }
-
     public static Bullet createBullet(Player player, String type) {
         SpriteManager handler = SpriteManager.getInstance();
         MySprite bulletSprite = handler.getSprite(type);

@@ -198,15 +198,8 @@ public class GameState {
     }
 
     public void shootBullet(Player player) {
-        if (random.nextInt(3) == 1 || true) {
-            List<Bullet> bullet = Bullet.createBulletSpray(player, "bullet");
-            for (Bullet bullet1 : bullet) {
-                bullets.add(bullet1);
-            }
-        } else {
             bullets.add(Bullet.createBullet(player, "bullet"));
         }
-    }
 
 
     public List<Player> getPlayers() {
