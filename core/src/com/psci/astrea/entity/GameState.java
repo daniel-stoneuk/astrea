@@ -66,7 +66,7 @@ public class GameState {
 
         sun = Sun.create("sun");
 
-        asteroids = new ArrayList< Asteroid>();
+        asteroids = new ArrayList<Asteroid>();
         asteroidsDeleteQueue = new ArrayList<Asteroid>();
 
         GlyphLayout layout = new GlyphLayout(); //dont do this every frame! Store it as member
@@ -147,7 +147,7 @@ public class GameState {
             displayBullets(spriteBatch);
             displayPlayers(spriteBatch);
             spriteBatch.begin();
-            font.draw(spriteBatch, "Asteroids Missed: " + sun.getHits(), Gdx.graphics.getWidth() - hitCountWidth , Gdx.graphics.getHeight());
+            font.draw(spriteBatch, "Asteroids Missed: " + sun.getHits(), Gdx.graphics.getWidth() - hitCountWidth, Gdx.graphics.getHeight());
             spriteBatch.end();
         } else {
             spriteBatch.begin();
@@ -198,8 +198,16 @@ public class GameState {
     }
 
     public void shootBullet(Player player) {
-        bullets.add(Bullet.createBullet(player, "bullet"));
+        if (random.nextInt(3) == 1 || true) {
+            List<Bullet> bullet = Bullet.createBulletSpray(player, "bullet");
+            for (Bullet bullet1 : bullet) {
+                bullets.add(bullet1);
+            }
+        } else {
+            bullets.add(Bullet.createBullet(player, "bullet"));
+        }
     }
+
 
     public List<Player> getPlayers() {
         return players;

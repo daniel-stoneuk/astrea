@@ -11,20 +11,25 @@ import com.psci.astrea.entity.player.Rocket;
 
 public abstract class Player extends Entity {
 
-    public static final float MAX_SPEED = 12f;
+    public static final float MAX_SPEED = 8f;
     public static final float SPEED_DECREASE = 0.2f;
-    public static final float SPEED_INCREASE = 0.7f;
-    private static final float ROTATION_FACTOR = 4f;
+    public static final float SPEED_INCREASE = 1f;
+
+    public static final float ROTATION_MAX_SPEED = 4f;
+    public static final float ROTATION_SPEED_DECREASE = 0.15f;
+    public static final float ROTATION_SPEED_INCREASE = 0.35f;
 
     protected float angle;
     private int health;
     public float speed;
+    public float rotationSpeed;
     private float cooldown;
 
     public Player(MySprite sprite, Vector2 position, int health, float speed, float angle) {
         super(sprite);
         this.health = health;
         this.speed = speed;
+        this.rotationSpeed = speed;
         this.angle = angle;
         this.position = position;
     }
@@ -45,11 +50,13 @@ public abstract class Player extends Entity {
     }
 
     public void rotateLeft() {
-        angle = getAngle(angle - ROTATION_FACTOR);
+        rotationSpeed = rotationSpeed - ROTATION_SPEED_INCREASE;
+        if (rotationSpeed < -ROTATION_MAX_SPEED) rotationSpeed = -ROTATION_MAX_SPEED;
     }
 
     public void rotateRight() {
-        angle = getAngle(angle + ROTATION_FACTOR);
+        rotationSpeed = rotationSpeed + ROTATION_SPEED_INCREASE;
+        if (rotationSpeed > ROTATION_MAX_SPEED) rotationSpeed = ROTATION_MAX_SPEED;
     }
 
     public void moveForwards() {
@@ -82,13 +89,9 @@ public abstract class Player extends Entity {
     public void update(float delta) {
         super.update(delta);
         cooldown = cooldown - delta;
-        if (speed <= -SPEED_DECREASE) {
-            speed += SPEED_DECREASE;
-        } else if (speed >= SPEED_DECREASE) {
-            speed -= SPEED_DECREASE;
-        } else {
-            speed = 0f;
-        }
+        speed = decreaseSpeed(speed, SPEED_DECREASE);
+        rotationSpeed = decreaseRotationSpeed(rotationSpeed, ROTATION_SPEED_DECREASE);
+
         boolean collided = false;
         GameState state = GameState.getInstance();
         for (Alien alien : state.getAliens()) {
@@ -107,7 +110,29 @@ public abstract class Player extends Entity {
             control();
         }
         movePlayer();
+        angle = getAngle(angle + rotationSpeed);
+    }
 
+    private float decreaseSpeed(float speed, float speedDecrease) {
+        if (speed <= -speedDecrease) {
+            speed += speedDecrease;
+        } else if (speed >= speedDecrease) {
+            speed -= speedDecrease;
+        } else {
+            speed = 0f;
+        }
+        return speed;
+    }
+
+    private float decreaseRotationSpeed(float speed, float speedDecrease) {
+        if (speed <= -speedDecrease) {
+            speed += speedDecrease;
+        } else if (speed >= speedDecrease) {
+            speed -= speedDecrease;
+        } else {
+            speed = 0f;
+        }
+        return speed;
     }
 
     private boolean checkCollisionWithSun(Sun target) {
@@ -168,8 +193,6 @@ public abstract class Player extends Entity {
         GameState state = GameState.getInstance();
         state.shootBullet(this);
     }
-
-
 
 
     public float getAngle() {
