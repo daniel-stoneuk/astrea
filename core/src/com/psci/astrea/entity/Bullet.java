@@ -62,7 +62,7 @@ public class Bullet extends Entity {
             collided = checkCollisionWithAsteroid(asteroid);
             if (collided) {
                 asteroid.collidedWithBullet();
-                GameState.getInstance().deleteBullet(this);
+//                GameState.getInstance().deleteBullet(this);
             }
         }
 

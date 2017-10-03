@@ -36,7 +36,7 @@ public class GameScreen extends MyScreen {
     private GameState gameState;
     public GameScreen(Astrea astrea) {
         Gdx.graphics.setTitle("Astrea");
-//        Gdx.input.setCursorCatched(true);
+        Gdx.input.setCursorCatched(true);
 
         this.astrea = astrea;
         //SpriteManager spriteManager = SpriteManager.getInstance();
