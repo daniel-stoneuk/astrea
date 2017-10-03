@@ -9,8 +9,8 @@ public class DesktopLauncher {
 
 	public static int width = 1280;
 	public static int height = width/16*9;
-	public static void main (String[] arg) {
 
+	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = width;
 		config.height = height;

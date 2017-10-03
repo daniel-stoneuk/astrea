@@ -25,10 +25,6 @@ public class GameScreen extends MyScreen {
 
     Astrea astrea;
 
-//    MySprite star;
-//    MySprite player;
-//    MySprite alien;
-//    MySprite asteroid;
     private BitmapFont font = new BitmapFont();
     public static SpriteBatch spriteBatch;
 
@@ -39,7 +35,6 @@ public class GameScreen extends MyScreen {
         Gdx.input.setCursorCatched(true);
 
         this.astrea = astrea;
-        //SpriteManager spriteManager = SpriteManager.getInstance();
         gameState = GameState.getInstance();
 
         spriteBatch = new SpriteBatch();
