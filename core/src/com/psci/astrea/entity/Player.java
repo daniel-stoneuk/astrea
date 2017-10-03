@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 package com.psci.astrea.entity;
 
 import com.badlogic.gdx.Game;
@@ -174,5 +173,4 @@ public abstract class Player extends Entity {
         return this.angle;
     }
 }
->>>>>>> d8991a40db742965e11c50315adc7b446c008486
 
