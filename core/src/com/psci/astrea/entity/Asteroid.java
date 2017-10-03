@@ -33,7 +33,7 @@ public class Asteroid extends Entity {
 
         int x = 0;
         int y = 0;
-        Random rd = new Random();
+        Random rd = GameState.getInstance().getRandom();
         switch (rd.nextInt(3)) {
             case 0:
                 x = 0;
@@ -58,7 +58,6 @@ public class Asteroid extends Entity {
         SpriteManager handler = SpriteManager.getInstance();
         MySprite asteroidSprite = handler.getSprite(type);
         Vector2 thePosition = new Vector2(x, y);
-        Vector2 position = new Vector2(x, y);
         Vector2 center = new Vector2(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2);
 
         float dx = center.x - x;

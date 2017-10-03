@@ -8,6 +8,7 @@ import com.psci.astrea.screen.helper.TimeHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameState {
 
@@ -16,6 +17,8 @@ public class GameState {
     private static final float ROUND_DURATION = 60;
 
     private static final float PRE_ROUND_WAIT_DURATION = 2;
+
+    Random random = new Random();
 
     private BitmapFont font = new BitmapFont(); //or use alex answer to use custom font
     private float hitCountWidth = 0;
@@ -216,5 +219,9 @@ public class GameState {
 
     public List<Bullet> getBullets() {
         return bullets;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 }

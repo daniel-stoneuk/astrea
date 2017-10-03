@@ -13,7 +13,7 @@ import com.psci.astrea.astrea.SpriteManager;
  */
 public class Bullet extends Entity {
 
-    public static final float SPEED = 18f;
+    public static final float SPEED = 12f;
 
     float angle;
     public float speed;

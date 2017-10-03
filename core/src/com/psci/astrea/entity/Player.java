@@ -1,23 +1,24 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5cdab0e389bda6aa867965421ad3c05f942ff976
 package com.psci.astrea.entity;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.psci.astrea.astrea.MySprite;
 import com.psci.astrea.astrea.SpriteManager;
 import com.psci.astrea.entity.player.Rocket;
-import com.psci.astrea.entity.Bullet;
-import com.psci.astrea.screen.GameScreen;
 
 public abstract class Player extends Entity {
 
-    public static final float MAX_SPEED = 7f;
-    public static final float SPEED_DECREASE = 0.25f;
-    private static final float ROTATION_FACTOR = 3f;
+    public static final float MAX_SPEED = 12f;
+    public static final float SPEED_DECREASE = 0.2f;
+    public static final float SPEED_INCREASE = 0.7f;
+    private static final float ROTATION_FACTOR = 4f;
 
     protected float angle;
     private int health;
@@ -56,12 +57,12 @@ public abstract class Player extends Entity {
     }
 
     public void moveForwards() {
-        speed = speed + 1f;
+        speed = speed + SPEED_INCREASE;
         if (speed > MAX_SPEED) speed = MAX_SPEED;
     }
 
     public void moveBackwards() {
-        speed = speed - 1f;
+        speed = speed - SPEED_INCREASE;
         if (speed < -MAX_SPEED) speed = -MAX_SPEED;
     }
 
@@ -146,7 +147,7 @@ public abstract class Player extends Entity {
             moveForwards();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            moveBackwards();
+//            moveBackwards();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -163,10 +164,16 @@ public abstract class Player extends Entity {
     }
 
     public void shoot() {
-        cooldown = 0.2f;
+        if (speed != 0) {
+            cooldown = 0.2f;
+        } else {
+            cooldown = .4f;
+        }
         GameState state = GameState.getInstance();
         state.shootBullet(this);
     }
+
+
 
 
     public float getAngle() {
