@@ -38,8 +38,8 @@ public class Alien extends Entity {
 
     public static Alien createAlien(String type) {
         Alien alien = null;
-        float x = Player.getPosition().x;
-        float y = Player.getPosition().y;
+        int x = 600;
+        int y = 600;
         Random random = new Random();
         SpriteManager handler = SpriteManager.getInstance();
         MySprite alienSprite = handler.getSprite(type);

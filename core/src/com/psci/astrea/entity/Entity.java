@@ -9,7 +9,7 @@ public abstract class Entity {
     public static int SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static int SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
-    protected static Vector2 position;
+    protected Vector2 position;
     protected MySprite sprite;
     protected boolean active;
 
@@ -49,7 +49,7 @@ public abstract class Entity {
     }
 
 
-    public static Vector2 getPosition() {
+    public Vector2 getPosition() {
         return position;
     }
 
