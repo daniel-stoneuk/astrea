@@ -2,7 +2,7 @@
 
 A game that revolves around stars.
 
-# Screenshots
+## Screenshots
 
 The player can shoot at the asteroids.
 
