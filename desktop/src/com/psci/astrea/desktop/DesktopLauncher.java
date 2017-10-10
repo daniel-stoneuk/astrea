@@ -14,8 +14,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = width;
 		config.height = height;
-		config.resizable = false;
-		config.fullscreen = true;
+		config.resizable = true;
 
 		new LwjglApplication(new Astrea(), config);
 	}
