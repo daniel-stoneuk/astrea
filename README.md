@@ -1,6 +1,6 @@
 # Astrea
 
-A game that revolves around stars.
+A game that revolves around stars. Download JAR file [here](https://github.com/daniel-stoneuk/astrea/blob/master/desktop-1.0.jar)
 
 ## Screenshots
 
